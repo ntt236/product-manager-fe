@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-neutral-900 font-sans text-neutral-100 antialiased selection:bg-neutral-100 selection:text-neutral-950;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-neutral-100 px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-neutral-950 transition-all hover:bg-white hover:shadow-lg hover:shadow-neutral-950/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-700/60 bg-neutral-800/80 px-4 py-2.5 text-xs font-medium uppercase tracking-wider text-neutral-200 backdrop-blur-sm transition-all hover:bg-neutral-800 hover:border-neutral-600 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-rose-950/40 border border-rose-800/50 px-4 py-2.5 text-xs font-medium uppercase tracking-wider text-rose-300 transition-all hover:bg-rose-900/60 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .input-minimal {
+    @apply w-full rounded-lg border border-neutral-800 bg-neutral-900/90 px-3.5 py-2.5 text-sm text-neutral-100 placeholder-neutral-500 transition-all focus:border-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500;
+  }
+  .badge-minimal {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider border;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #171717;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
