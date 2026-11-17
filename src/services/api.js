@@ -4,7 +4,8 @@
  * - Tự động parse JSON và chuẩn hóa thông báo lỗi từ backend.
  */
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || 'https://product-manager-7zlr.onrender.com/api';
 
 async function request(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
