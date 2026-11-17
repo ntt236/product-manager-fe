@@ -12,6 +12,8 @@ import {
   User,
   Search,
   ChevronRight,
+  Ban,
+  CheckCircle2,
 } from 'lucide-react';
 
 const STATUS_OPTIONS = [
@@ -356,29 +358,49 @@ export default function AdminOrdersPage() {
                       <span>Xem chi tiết</span>
                     </button>
 
-                    {/* Status Select dropdown */}
+                    {/* Status Select dropdown or Terminal State Badge */}
                     <div className="relative shrink-0">
-                      <select
-                        value={order.status}
-                        disabled={isUpdating}
-                        onChange={(e) => handleStatusChange(order.id, e.target.value)}
-                        className={`text-xs uppercase font-mono tracking-wider font-semibold py-2 pl-3 pr-8 rounded-lg border appearance-none cursor-pointer transition whitespace-nowrap ${
-                          statusMeta.badge
-                        } ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:brightness-110'}`}
-                      >
-                        {STATUS_OPTIONS.map((opt) => (
-                          <option
-                            key={opt.value}
-                            value={opt.value}
-                            className="bg-neutral-900 text-neutral-100 font-sans normal-case"
+                      {order.status === 'cancelled' ? (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-lg border bg-rose-950/60 text-rose-300 border-rose-800/80 cursor-not-allowed">
+                          <Ban className="w-3.5 h-3.5 text-rose-400" />
+                          <span>Đã hủy (Khóa đơn)</span>
+                        </span>
+                      ) : order.status === 'delivered' ? (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono uppercase tracking-wider font-semibold rounded-lg border bg-emerald-950/60 text-emerald-300 border-emerald-800/80 cursor-default">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Đã giao thành công</span>
+                        </span>
+                      ) : (
+                        <div className="relative shrink-0">
+                          <select
+                            value={order.status}
+                            disabled={isUpdating}
+                            onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                            className={`text-xs uppercase font-mono tracking-wider font-semibold py-2 pl-3 pr-8 rounded-lg border appearance-none cursor-pointer transition whitespace-nowrap ${
+                              statusMeta.badge
+                            } ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'hover:brightness-110'}`}
                           >
-                            {opt.label}
-                          </option>
-                        ))}
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-neutral-400">
-                        <ChevronRight className="w-3.5 h-3.5 rotate-90" />
-                      </div>
+                            {STATUS_OPTIONS.filter((opt) => opt.value !== 'delivered').map((opt) => (
+                              <option
+                                key={opt.value}
+                                value={opt.value}
+                                className="bg-neutral-900 text-neutral-100 font-sans normal-case"
+                              >
+                                {opt.label}
+                              </option>
+                            ))}
+                            <option
+                              value="delivered"
+                              className="bg-neutral-900 text-neutral-100 font-sans normal-case"
+                            >
+                              Đã hoàn thành
+                            </option>
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-neutral-400">
+                            <ChevronRight className="w-3.5 h-3.5 rotate-90" />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
